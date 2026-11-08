@@ -1,0 +1,229 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens                                                      */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Colour. Default tokens = Paper; other schemes override them below.
+     ink = BACKGROUND · paper = FOREGROUND (names are kept on every scheme).
+     Paper contrast vs ink: paper 17:1 · muted 6.1:1 · faint 4.8:1        */
+  --color-ink: #f3f2ee;
+  --color-ink-raised: #eae9e3;
+  --color-curtain: #141413;
+  --color-paper: #141413;
+  --color-muted: #5f5e59;
+  --color-faint: #6b6a64;
+  --color-line: #dedcd5;
+  --color-line-strong: #c9c7bf;
+  --color-accent: #141413;
+  --color-cta-hover: #000000;
+  --color-curtain-text: #f3f2ee;
+
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Fluid type scale */
+  --text-display: clamp(4.5rem, 16.5vw, 16.5rem);
+  --text-display--line-height: 0.84;
+  --text-display--letter-spacing: -0.048em;
+
+  --text-headline: clamp(3rem, 10vw, 9.5rem);
+  --text-headline--line-height: 0.88;
+  --text-headline--letter-spacing: -0.045em;
+
+  --text-title: clamp(2.5rem, 6.4vw, 6rem);
+  --text-title--line-height: 0.92;
+  --text-title--letter-spacing: -0.042em;
+
+  --text-lead: clamp(1.375rem, 2.4vw, 2.25rem);
+  --text-lead--line-height: 1.22;
+  --text-lead--letter-spacing: -0.025em;
+
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.12em;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    min-height: 100svh;
+    background: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  /* Visible, consistent keyboard focus everywhere */
+  :focus-visible {
+    outline: 2px solid var(--color-paper);
+    outline-offset: 4px;
+    border-radius: 1px;
+  }
+
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Components & utilities                                             */
+/* ------------------------------------------------------------------ */
+@utility container-page {
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2.5rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 3.5rem;
+  }
+}
+
+/* 12-column editorial grid (4 on mobile) */
+@utility grid-page {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 1.25rem;
+  @media (width >= 48rem) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+}
+
+/* Small uppercase mono metadata label */
+@utility label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+}
+
+/* Animated underline for text links */
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s var(--ease-out-expo);
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* Mask for line-reveal headings; keeps descenders and punctuation unclipped */
+@utility mask-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Colour schemes (set via <html data-theme="…">, see content/themes) */
+/*  ink = background · paper = foreground. Contrast notes are vs ink.  */
+/* ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+}
+
+/* Stone + Signal: warm grey with one orange accent. paper 14:1 · muted 5.9:1 · faint 4.7:1 */
+[data-theme='stone'] {
+  color-scheme: light;
+  --color-ink: #e8e5de;
+  --color-ink-raised: #dfdbd3;
+  --color-curtain: #e8461e;
+  --color-paper: #161514;
+  --color-muted: #57554f;
+  --color-faint: #66645e;
+  --color-line: #d3cfc6;
+  --color-line-strong: #bdb8ae;
+  --color-accent: #e8461e;
+  --color-cta-hover: #000000;
+  --color-curtain-text: #161514;
+}
+
+/* Sage: soft grey-green. paper 13:1 · muted 5.7:1 · faint 4.6:1 */
+[data-theme='sage'] {
+  color-scheme: light;
+  --color-ink: #dde1d6;
+  --color-ink-raised: #d3d8cb;
+  --color-curtain: #1a1f18;
+  --color-paper: #1a1f18;
+  --color-muted: #4f574b;
+  --color-faint: #596155;
+  --color-line: #c9cfbf;
+  --color-line-strong: #b3baa8;
+  --color-accent: #1a1f18;
+  --color-cta-hover: #000000;
+  --color-curtain-text: #dde1d6;
+}
+
+/* Signal Path design (src/designs/signal). Only the tokens the shared
+   shell uses live here (page background before Signal's own CSS has
+   loaded, skip link, page-transition curtain); the rest is in signal.css. */
+html[data-design='signal'] {
+  color-scheme: dark;
+  --color-ink: #0a0e0d;
+  --color-paper: #e9efec;
+  --color-curtain: #0a0e0d;
+  --color-curtain-text: #c8f169;
+  --color-line-strong: #2a3b36;
+}
+
+/* Colour changes ease in when switching schemes */
+html.theme-transition,
+html.theme-transition * {
+  transition:
+    background-color 0.5s ease,
+    border-color 0.5s ease,
+    color 0.5s ease,
+    fill 0.5s ease !important;
+}
+
+/* Lenis smooth scrolling */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
