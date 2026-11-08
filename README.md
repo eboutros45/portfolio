@@ -95,7 +95,7 @@ All text lives in **`content/`** (Markdown) and **`src/content/`**, so you never
 
 Two complete designs share the same content and routes: **Classic** and **Signal Path**.
 
-- **Preview:** add `?design=signal` or `?design=classic` to any URL (remembered for that tab). In `npm run dev` a switch also sits in the bottom-right corner.
+- **Live direction:** Signal Path. The floating design switch is removed, and saved or URL-based design previews are ignored.
 - **Choose one:** set `ACTIVE_DESIGN` in `src/content/designs.ts`.
 - Signal Path's wording that isn't in your profile is in `src/designs/signal/copy.ts`, marked `REVIEW`.
 

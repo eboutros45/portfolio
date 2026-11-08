@@ -38,28 +38,8 @@ export function saveDesign(id: DesignId) {
 /** Whether the preview switch should be shown (dev, or after using ?design=). */
 export const designSwitchEnabled = () => import.meta.env.DEV || read(`${KEY}-on`) === '1'
 
-/**
- * Call once before render. Resolves the design from `?design=`, then the
- * tab's saved choice, then ACTIVE_DESIGN, and applies it without a flash.
- */
+/** Apply the chosen site design, ignoring previous preview selections. */
 export function initDesign(): DesignId {
-  const url = new URL(location.href)
-  const param = url.searchParams.get('design')
-  let id: DesignId = ACTIVE_DESIGN
-  if (param !== null) {
-    if (isDesign(param)) {
-      id = param
-      saveDesign(param)
-    } else if (import.meta.env.DEV) {
-      console.warn(`[design] unknown ?design=${param}; using "${ACTIVE_DESIGN}"`)
-    }
-    url.searchParams.delete('design')
-    history.replaceState(history.state, '', url.pathname + url.search + url.hash)
-  }
-  if (param === null || !isDesign(param)) {
-    const saved = read(KEY)
-    if (isDesign(saved)) id = saved
-  }
-  applyDesign(id)
-  return id
+  applyDesign(ACTIVE_DESIGN)
+  return ACTIVE_DESIGN
 }

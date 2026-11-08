@@ -4,7 +4,6 @@ import { Route, Routes, useLocation } from 'react-router'
 import { getCaseStudy, getProject } from './content/projects'
 import { site } from './content/site'
 import { useDesign } from './components/DesignProvider'
-import { DesignSwitch } from './components/DesignSwitch'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { Footer } from './components/Footer'
 import { Nav } from './components/Nav'
@@ -109,7 +108,6 @@ export default function App({ showThemePicker = false }: { showThemePicker?: boo
           <Nav />
         )}
         {showThemePicker && !isSignal && <ThemePicker />}
-        <DesignSwitch />
         <ErrorBoundary>
           <AnimatePresence mode="wait" initial={false} onExitComplete={onExitComplete}>
             <m.div key={location.pathname} initial="initial" animate="enter" exit="exit">
