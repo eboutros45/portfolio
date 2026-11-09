@@ -10,6 +10,8 @@ import type { VisualKey } from '../content/projects'
  *   settles into an orderly grid ("streamlined workflows").
  * - IDLab: a waveform where one segment repeats identically (the
  *   repetitive task). When `active`, the bars pulse in a travelling ripple.
+ * - Backroom: connected layers moving from a local core toward a distributed
+ *   web experience. When `active`, the connections come online in sequence.
  *
  * Deterministic (seeded) so every render and every visitor sees the same art.
  * Animation is disabled for visitors who prefer reduced motion.
@@ -148,6 +150,42 @@ function Idlab({ active }: { active: boolean }) {
   )
 }
 
+function Backroom({ active }: { active: boolean }) {
+  const nodes = [
+    { x: 120, y: 250, r: 34 },
+    { x: 310, y: 125, r: 24 },
+    { x: 310, y: 375, r: 24 },
+    { x: 510, y: 175, r: 28 },
+    { x: 510, y: 325, r: 28 },
+    { x: 690, y: 250, r: 36 },
+  ]
+  const edges = [[0, 1], [0, 2], [1, 3], [2, 4], [3, 5], [4, 5], [1, 4]]
+  return (
+    <>
+      {edges.map(([a, b], index) => (
+        <m.line
+          key={`${a}-${b}`}
+          x1={nodes[a].x}
+          y1={nodes[a].y}
+          x2={nodes[b].x}
+          y2={nodes[b].y}
+          stroke="var(--color-paper)"
+          strokeWidth={2}
+          initial={false}
+          animate={{ pathLength: active ? 1 : 0.18, opacity: active ? 0.65 : 0.18 }}
+          transition={{ duration: 0.8, ease: EASE, delay: active ? index * 0.08 : 0 }}
+        />
+      ))}
+      {nodes.map((node, index) => (
+        <m.g key={`${node.x}-${node.y}`} initial={false} animate={{ opacity: active ? 1 : 0.4 }} transition={{ duration: 0.5, delay: active ? index * 0.09 : 0 }}>
+          <circle cx={node.x} cy={node.y} r={node.r} fill="var(--color-line-strong)" />
+          <circle cx={node.x} cy={node.y} r={node.r * 0.42} fill="var(--color-paper)" />
+        </m.g>
+      ))}
+    </>
+  )
+}
+
 export function ProjectVisual({
   visual,
   active = false,
@@ -167,7 +205,7 @@ export function ProjectVisual({
       role="img"
       aria-label="Abstract illustration (not a product interface)"
     >
-      {visual === 'fawaros' ? <Fawaros active={on} /> : <Idlab active={on} />}
+      {visual === 'fawaros' ? <Fawaros active={on} /> : visual === 'idlab' ? <Idlab active={on} /> : <Backroom active={on} />}
     </svg>
   )
 }

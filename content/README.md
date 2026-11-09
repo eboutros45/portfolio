@@ -32,7 +32,7 @@ summary: One sentence. Used on the homepage and in link previews.
 origin: Restaurant floor     # short "where it came from"
 role: Scope → design → build → iterate
 focus: Product engineering, operations
-visual: fawaros              # fawaros | idlab (abstract figure; add new ones in src/components/ProjectVisual.tsx)
+visual: fawaros              # fawaros | idlab | backroom (abstract project figure)
 disciplines:
   - Software product development
 draft: false                 # true = visible in dev only

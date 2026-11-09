@@ -8,8 +8,6 @@ import { explorations, projects, statusLabel } from '../../content/projects'
 import { getContactLinks, site } from '../../content/site'
 import { useDocumentMeta } from '../../hooks/useDocumentMeta'
 
-const featured = projects[0]
-
 const progression: Record<string, { label: string; href: string }> = {
   idlab: { label: 'Continued in Backroom', href: '/projects/backroom' },
   backroom: { label: 'Evolved from IDLab', href: '/projects/idlab' },
@@ -42,12 +40,15 @@ export default function SignalHome() {
 
       <section id="work" className="gp-section"><div className="gp-wrap">
         <div className="gp-heading"><div><Label>Selected work</Label><h2>Products shaped by real problems.</h2></div><p>Software projects where engineering decisions begin with the people, workflows, and constraints involved.</p></div>
-        {featured && <article className="gp-feature">
-          <div className="gp-feature__visual"><ProjectVisual visual={featured.visual} active /><span>Product visual · abstract representation</span></div>
-          <div className="gp-feature__copy"><div className="gp-status"><i /> {statusLabel[featured.status]}</div><h3>{featured.name}</h3><p>{featured.summary}</p><ul className="gp-tags">{featured.disciplines.slice(0, 3).map((x) => <li key={x}>{x}</li>)}</ul><Link to={`/projects/${featured.slug}`} className="gp-text-link">View project <ArrowUpRight aria-hidden /></Link></div>
-        </article>}
-        <div className="gp-project-grid">
-          {projects.slice(1).map((project) => <article className="gp-project gp-project--interactive" key={project.slug}><Link to={`/projects/${project.slug}`} className="gp-project__main"><div className="gp-project__visual"><ProjectVisual visual={project.visual} active /></div><div className="gp-project__body"><div className="gp-status"><i /> {statusLabel[project.status]}</div><h3>{project.name}</h3><p>{project.summary}</p><span className="gp-text-link">View project <ArrowUpRight aria-hidden /></span></div></Link>{progression[project.slug] && <Link className="gp-relation" to={progression[project.slug].href}>{progression[project.slug].label} <ArrowRight aria-hidden /></Link>}</article>)}
+        <div className="gp-project-rows">
+          {projects.map((project, index) => <article className={`gp-feature ${index % 2 ? 'gp-feature--flip' : ''}`} key={project.slug}>
+            <div className="gp-feature__visual"><ProjectVisual visual={project.visual} active /><span>{project.name} · abstract product visual</span></div>
+            <div className="gp-feature__copy"><div className="gp-status"><i /> {statusLabel[project.status]}</div><h3>{project.name}</h3><p>{project.summary}</p><ul className="gp-tags">{project.disciplines.slice(0, 3).map((x) => <li key={x}>{x}</li>)}</ul>{progression[project.slug] && <Link className="gp-inline-relation" to={progression[project.slug].href}>{progression[project.slug].label} <ArrowRight aria-hidden /></Link>}<Link to={`/projects/${project.slug}`} className="gp-text-link">View project <ArrowUpRight aria-hidden /></Link></div>
+          </article>)}
+        </div>
+
+        <div className="gp-case-heading"><div><Label>Case studies</Label><h3>Ideas and systems in development.</h3></div><p>Smaller explorations focused on product scope, structure, and practical constraints.</p></div>
+        <div className="gp-project-grid gp-case-grid">
           {explorations.map((project) => <article className="gp-project gp-project--concept" key={project.name}><div className="gp-concept-mark" aria-hidden>{project.name.slice(0, 2).toUpperCase()}</div><div className="gp-project__body"><div className="gp-status gp-status--concept"><i /> {statusLabel[project.status]}</div><h3>{project.name}</h3>{project.subtitle && <p className="gp-project__subtitle">— {project.subtitle}</p>}<p>{project.description}</p></div></article>)}
         </div>
       </div></section>

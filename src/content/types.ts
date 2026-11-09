@@ -7,7 +7,7 @@
 export const PROJECT_STATUSES = ['functional', 'in-development', 'concept'] as const
 export type ProjectStatus = (typeof PROJECT_STATUSES)[number]
 
-export const VISUAL_KEYS = ['fawaros', 'idlab'] as const
+export const VISUAL_KEYS = ['fawaros', 'idlab', 'backroom'] as const
 export type VisualKey = (typeof VISUAL_KEYS)[number]
 
 export const CASE_STUDY_TYPES = ['product', 'automation', 'concept', 'other'] as const

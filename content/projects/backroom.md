@@ -7,7 +7,7 @@ summary: The next stage of the IDLab product journey, evolving its music-managem
 origin: IDLab
 role: Product design → architecture → development
 focus: Web product, music workflows
-visual: idlab
+visual: backroom
 disciplines:
   - Product development
   - Web application design
