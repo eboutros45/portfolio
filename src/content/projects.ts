@@ -63,7 +63,8 @@ export const explorations: Exploration[] = [
     status: 'concept',
   },
   {
-    name: 'Event Ticketing Platform',
+    name: 'Night Shift',
+    subtitle: 'Event Ticketing Platform',
     description: 'A concept for a web-based event management and ticketing system.',
     status: 'concept',
   },

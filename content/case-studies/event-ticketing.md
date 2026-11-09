@@ -1,5 +1,5 @@
 ---
-title: "Event ticketing platform: scoping a web system"
+title: "Night Shift — Event Ticketing Platform"
 order: 2
 type: concept
 project: null

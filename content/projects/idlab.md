@@ -35,6 +35,12 @@ IDLab explores how much of that repetition can be reliably handed over to softwa
 - Building integrations between software tools
 - Exploring and testing experimental features
 
+## Product progression
+
+IDLab established the original foundation for [Backroom](/projects/backroom). Backroom continues the product journey by evolving the underlying music-management and DJ workflows into a more accessible, web-based experience.
+
+The two remain distinct projects: IDLab is the original application, while Backroom represents the next stage of the idea.
+
 ## What I learned
 
 Automation is only valuable when it is dependable. Edge cases decide whether a tool actually saves time.

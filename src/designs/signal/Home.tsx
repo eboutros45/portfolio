@@ -10,6 +10,11 @@ import { useDocumentMeta } from '../../hooks/useDocumentMeta'
 
 const featured = projects[0]
 
+const progression: Record<string, { label: string; href: string }> = {
+  idlab: { label: 'Continued in Backroom', href: '/projects/backroom' },
+  backroom: { label: 'Evolved from IDLab', href: '/projects/idlab' },
+}
+
 function Label({ children }: { children: React.ReactNode }) {
   return <p className="gp-label">{children}</p>
 }
@@ -42,8 +47,8 @@ export default function SignalHome() {
           <div className="gp-feature__copy"><div className="gp-status"><i /> {statusLabel[featured.status]}</div><h3>{featured.name}</h3><p>{featured.summary}</p><ul className="gp-tags">{featured.disciplines.slice(0, 3).map((x) => <li key={x}>{x}</li>)}</ul><Link to={`/projects/${featured.slug}`} className="gp-text-link">View project <ArrowUpRight aria-hidden /></Link></div>
         </article>}
         <div className="gp-project-grid">
-          {projects.slice(1).map((project) => <Link to={`/projects/${project.slug}`} className="gp-project" key={project.slug}><div className="gp-project__visual"><ProjectVisual visual={project.visual} active /></div><div className="gp-project__body"><div className="gp-status"><i /> {statusLabel[project.status]}</div><h3>{project.name}</h3><p>{project.summary}</p><span className="gp-text-link">View project <ArrowUpRight aria-hidden /></span></div></Link>)}
-          {explorations.map((project) => <article className="gp-project gp-project--concept" key={project.name}><div className="gp-concept-mark" aria-hidden>{project.name.slice(0, 2).toUpperCase()}</div><div className="gp-project__body"><div className="gp-status gp-status--concept"><i /> {statusLabel[project.status]}</div><h3>{project.name}</h3>{project.subtitle && <p className="gp-project__subtitle">{project.subtitle}</p>}<p>{project.description}</p></div></article>)}
+          {projects.slice(1).map((project) => <article className="gp-project gp-project--interactive" key={project.slug}><Link to={`/projects/${project.slug}`} className="gp-project__main"><div className="gp-project__visual"><ProjectVisual visual={project.visual} active /></div><div className="gp-project__body"><div className="gp-status"><i /> {statusLabel[project.status]}</div><h3>{project.name}</h3><p>{project.summary}</p><span className="gp-text-link">View project <ArrowUpRight aria-hidden /></span></div></Link>{progression[project.slug] && <Link className="gp-relation" to={progression[project.slug].href}>{progression[project.slug].label} <ArrowRight aria-hidden /></Link>}</article>)}
+          {explorations.map((project) => <article className="gp-project gp-project--concept" key={project.name}><div className="gp-concept-mark" aria-hidden>{project.name.slice(0, 2).toUpperCase()}</div><div className="gp-project__body"><div className="gp-status gp-status--concept"><i /> {statusLabel[project.status]}</div><h3>{project.name}</h3>{project.subtitle && <p className="gp-project__subtitle">— {project.subtitle}</p>}<p>{project.description}</p></div></article>)}
         </div>
       </div></section>
 
